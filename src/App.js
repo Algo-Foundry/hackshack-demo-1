@@ -18,9 +18,11 @@ function App() {
       let sender = creatorAccount.addr;
       let params = await client.getTransactionParams().do();
       let index = process.env.REACT_APP_INDEX_APP_ID
+      let newOwner = process.env.REACT_APP_OWNER
 
       // create unsigned transaction
-      let txn = algosdk.makeApplicationNoOpTxn(sender, params, index)
+      const appArgs = [new Uint8Array(Buffer.from("updateOwner"))];
+      let txn = algosdk.makeApplicationNoOpTxn(sender, params, Number(index), appArgs, [newOwner])
       let txId = txn.txID().toString();
 
       // sign, send, await
@@ -33,20 +35,7 @@ function App() {
 
       // Wait for transaction to be confirmed
       let confirmedTxn = await algosdk.waitForConfirmation(client, txId, 4);
-      //Get the completed Transaction
-      console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
-
-      // display results
-      let transactionResponse = await client.pendingTransactionInformation(txId).do();
-      console.log("Called app-id:", transactionResponse['txn']['txn']['apid'])
-      if (transactionResponse['global-state-delta'] !== undefined ) {
-          console.log("Global State updated:",transactionResponse['global-state-delta']);
-      }
-      if (transactionResponse['local-state-delta'] !== undefined ) {
-          console.log("Local State updated:",transactionResponse['local-state-delta']);
-      }
-
-      setResponse("Called app-id:", transactionResponse['txn']['txn']['apid']);
+      setResponse("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
     } catch (error) {
       console.log(error);
       setResponse(error.message);
