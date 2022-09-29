@@ -13,7 +13,7 @@ from smart_contract import contracts
 ALGOD_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 ALGOD_ADDRESS = "http://localhost:4001"
 
-MNEMONIC = "payment brisk fit helmet hold drop pink robot cargo border glare attract finish token wire asthma split satisfy two abandon gesture truth message able noble"
+MNEMONIC = ""
 
 class PendingTxnResponse:
     def __init__(self, response: Dict[str, Any]) -> None:
