@@ -4,7 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Setup Frontend
 npm install
+
 create .env file based on .env.example
+
 npm start
 
 ## Available Scripts
